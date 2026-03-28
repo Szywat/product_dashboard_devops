@@ -1,12 +1,15 @@
 const express = require('express');
 const crypto = require('crypto');
+const cors = require('cors');
+
 const app = express();
 const port = 8000;
 
+app.use(cors())
 app.use(express.json())
 
 // Temporary db
-let items = [];
+const items = [{'id': 1, 'item': 'laptop'}, {'id': 2, 'item': 'myszka'}, {'id': 3, 'item': 'ładowarka'}];
 
 const instanceId = crypto.randomUUID();
 
@@ -28,7 +31,7 @@ app.post('/items', (req, res) => {
 app.get('/stats', (req, res) => {
     res.json({
         totalItems: items.length,
-        instanceId: instanceId
+        instanceId: instanceId,
     });
 });
 

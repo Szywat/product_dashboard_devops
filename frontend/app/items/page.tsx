@@ -35,7 +35,7 @@ export default function Items() {
     };
 
     try {
-      const response = await fetch("http://localhost:8000/items", {
+      const response = await fetch("/api/items", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -57,7 +57,6 @@ export default function Items() {
     <div className="max-w-4xl mx-auto p-6">
       <h2 className="text-2xl font-bold mb-6">Lista produktów:</h2>
 
-      {/* Formularz dodawania */}
       <form
         onSubmit={handleSubmit}
         className="flex flex-col sm:flex-row gap-3 mb-8"
@@ -76,8 +75,7 @@ export default function Items() {
           Dodaj produkt
         </button>
       </form>
-
-      {/* Tabela produktów */}
+      
       <div className="overflow-x-auto rounded-lg border border-foreground/20 shadow-sm">
         <table className="w-full text-left border-collapse">
           <thead>

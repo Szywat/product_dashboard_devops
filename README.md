@@ -8,3 +8,5 @@
 - Backend
 - Nginx configuration
 - Dockerfiles
+
+Each solution is documented on it's respective branch

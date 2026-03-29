@@ -14,7 +14,7 @@ export default function Stats() {
   useEffect(() => {
     async function fetcher() {
       try {
-        const response = await fetch("http://localhost:8000/stats");
+        const response = await fetch("/api/stats");
         const data: StatsProps = await response.json();
         setStats(data);
       } catch (error) {

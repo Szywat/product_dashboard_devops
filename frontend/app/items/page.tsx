@@ -14,7 +14,7 @@ export default function Items() {
   useEffect(() => {
     const fetchItems = async () => {
       try {
-        const response = await fetch("http://localhost:8000/items");
+        const response = await fetch("/api/items");
         const data: ItemsProps[] = await response.json();
         setItems(data);
       } catch (error) {

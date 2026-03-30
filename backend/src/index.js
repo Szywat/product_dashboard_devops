@@ -15,7 +15,7 @@ const items = [
   { id: 3, item: "ładowarka" },
 ];
 
-const instanceId = crypto.randomUUID();
+const instanceId = process.env.INSTANCE_ID || crypto.randomUUID();
 
 app.get("/items", (req, res) => {
   res.json(items);

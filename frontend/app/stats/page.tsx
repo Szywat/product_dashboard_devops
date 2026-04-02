@@ -5,6 +5,8 @@ import { useState, useEffect } from "react";
 type StatsProps = {
   totalItems: number;
   instanceId: string;
+  serverTime: number;
+  requestCount: number;
 };
 
 export default function Stats() {
@@ -25,6 +27,18 @@ export default function Stats() {
     }
     fetcher();
   }, []);
+
+  const uptime = () => {
+    const t: number = stats?.serverTime ?? 0;
+
+    if (Math.floor(t / 3600) > 0) {
+      return `${Math.floor(t / 3600)}h ${Math.floor(t / 60) % 60}m ${Math.floor(t) % 60}s`;
+    } else if (Math.floor(t / 60) > 0) {
+      return `${Math.floor(t / 60) % 60}m ${Math.floor(t) % 60}s`;
+    } else {
+      return `${Math.floor(t) % 60}s`;
+    }
+  };
 
   return (
     <div className="max-w-4xl mx-auto p-6">
@@ -50,6 +64,22 @@ export default function Stats() {
             <span className="text-lg font-mono opacity-90 break-all">
               {stats.instanceId}
             </span>
+          </div>
+
+          <div className="flex flex-col items-center justify-center p-8 rounded-lg border border-foreground/20 bg-foreground/5 shadow-sm transition-colors hover:bg-foreground/10 text-center">
+            <span className="text-sm uppercase tracking-wider opacity-70 mb-2">
+              Czas
+            </span>
+            <span className="text-lg font-mono opacity-90 break-all">
+              {uptime()}
+            </span>
+          </div>
+
+          <div className="flex flex-col items-center justify-center p-8 rounded-lg border border-foreground/20 bg-foreground/5 shadow-sm transition-colors hover:bg-foreground/10 text-center">
+            <span className="text-sm uppercase tracking-wider opacity-70 mb-2">
+              Liczba obsłużonych żądań
+            </span>
+            <span className="text-5xl font-bold">{stats.requestCount}</span>
           </div>
         </div>
       ) : (

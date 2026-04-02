@@ -8,6 +8,13 @@ const port = 8000;
 app.use(cors());
 app.use(express.json());
 
+let requestCount = 0;
+
+app.use((req, res, next) => {
+  requestCount++;
+  next();
+});
+
 // Temporary db
 const items = [
   { id: 1, item: "laptop" },
@@ -36,6 +43,15 @@ app.get("/stats", (req, res) => {
   res.json({
     totalItems: items.length,
     instanceId: instanceId,
+    serverTime: process.uptime(),
+    requestCount: requestCount,
+  });
+});
+
+app.get("/health", (req, res) => {
+  res.status(200).json({
+    status: "ok",
+    uptime: process.uptime(),
   });
 });
 

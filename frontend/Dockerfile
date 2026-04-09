@@ -23,6 +23,8 @@ COPY --chown=app:app cache.conf /etc/nginx/conf.d/
 
 COPY --from=builder --chown=app:app /app/out /usr/share/nginx/html
 
+# BRAKUJE UPRAWNIEŃ - NIE DZIAŁA
+
 USER app
 EXPOSE 80
 HEALTHCHECK --interval=30s --timeout=5s --start-period=5s --retries=3 \

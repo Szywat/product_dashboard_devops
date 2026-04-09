@@ -13,17 +13,18 @@ COPY . .
 RUN npm run build
 
 FROM nginx:alpine AS production
+WORKDIR /app
+RUN addgroup -S app && adduser -S app -G app
 
 RUN rm /etc/nginx/conf.d/default.conf
 
-COPY default.conf /etc/nginx/conf.d/
-COPY cache.conf /etc/nginx/conf.d/
+COPY --chown=app:app default.conf /etc/nginx/conf.d/
+COPY --chown=app:app cache.conf /etc/nginx/conf.d/
 
-COPY --from=builder /app/out /usr/share/nginx/html
+COPY --from=builder --chown=app:app /app/out /usr/share/nginx/html
 
+USER app
 EXPOSE 80
-
 HEALTHCHECK --interval=30s --timeout=5s --start-period=5s --retries=3 \
     CMD wget -qO- http://localhost/  || exit 1
-
 CMD ["nginx", "-g", "daemon off;"]

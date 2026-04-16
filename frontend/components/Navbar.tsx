@@ -13,13 +13,13 @@ export default function Navbar() {
               Strona główna
             </Link>
             <Link
-              href="/items"
+              href="/items/"
               className="text-sm text-slate-700 hover:text-sky-600"
             >
               Lista produktów
             </Link>
             <Link
-              href="/stats"
+              href="/stats/"
               className="text-sm text-slate-700 hover:text-sky-600"
             >
               Statystyki

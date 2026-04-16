@@ -23,7 +23,11 @@ COPY --chown=app:app cache.conf /etc/nginx/conf.d/
 
 COPY --from=builder --chown=app:app /app/out /usr/share/nginx/html
 
-# BRAKUJE UPRAWNIEŃ - NIE DZIAŁA
+RUN chown -R app:app /var/cache/nginx \
+    && chown -R app:app /var/log/nginx \
+    && chown -R app:app /etc/nginx/conf.d \
+    && touch /var/run/nginx.pid \
+    && chown -R app:app /var/run/nginx.pid
 
 USER app
 EXPOSE 80
